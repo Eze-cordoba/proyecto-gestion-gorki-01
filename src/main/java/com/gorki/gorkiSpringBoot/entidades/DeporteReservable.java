@@ -11,19 +11,20 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Usuario {
+public class DeporteReservable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String email;
-    private String username ;
-    private String password ;
+    private String  nombre;
 
-    @OneToMany(mappedBy = "usuario")
+    private String descripcion;
+
+    @OneToMany
+    private List<HorarioDisponible> horariosDisponibles;
+
+    @OneToMany(mappedBy = "deporte")
     private List<Reserva> reservas;
-
-
 
 
 }
