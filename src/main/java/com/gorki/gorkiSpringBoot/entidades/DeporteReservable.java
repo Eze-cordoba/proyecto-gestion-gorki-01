@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -20,11 +21,11 @@ public class DeporteReservable {
 
     private String descripcion;
 
-    @OneToMany
-    private List<HorarioDisponible> horariosDisponibles;
+    @OneToMany(mappedBy = "deporteReservable", cascade = CascadeType.ALL)
+    private List<HorarioDisponible> horariosDisponibles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "deporte")
-    private List<Reserva> reservas;
+    @OneToMany(mappedBy = "deporte",cascade = CascadeType.ALL)
+    private List<Reserva> reservas = new ArrayList<>();
 
 
 }

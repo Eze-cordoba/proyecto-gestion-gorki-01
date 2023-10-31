@@ -20,7 +20,7 @@ public class Usuario {
     private String username ;
     private String password ;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL)
     private List<Reserva> reservas;
 
 
