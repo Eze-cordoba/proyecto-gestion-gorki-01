@@ -43,27 +43,38 @@ public class GorkiController {
     ReservaServiceImpl reservaService;
 
 
-//Esta funcion va a hacer para buscar reservas que ya hayan expirado y eliminarlas
-    //@Scheduled(fixedRate = 3000) // Ejecutar cada minuto (en milisegundos)
-    //public void miFuncionProgramada() {
-    // Coloca aquí el código que deseas ejecutar cada minuto
-    //    System.out.println("La función se ejecuta cada minuto en el controlador.");
-    //}
+    @Scheduled(fixedRate = 2 * 60 * 60 * 1000) // Ejecutar cada 2 horas (en milisegundos)
+    public void eliminarReservasExpiradas() {
+        List<DeporteReservable> deportes = deporteReservableService.findAll();
+        LocalDateTime ahora = LocalDateTime.now();
+
+        for (DeporteReservable deporte : deportes) {
+            for (Reserva reserva : deporte.getReservas()) {
+                if (reserva.getFechaInicio().isAfter(ahora)) {
+                    reservaService.eliminarReserva(reserva.getId());
+                }
+            }
+        }
+    }
+    @Scheduled(cron = "0 0 * * SUN") // Ejecutar todos los domingos a las 00:00 (medianoche)
+    public void actualizarReservasDeLaSemana() {
+        // Coloca aquí el código que deseas ejecutar todos los domingos
+    }
 
 
-    @GetMapping("/obtenerDeporte")
+
+    @GetMapping("/obtenerDeportes")
     public ResponseEntity<?> obtenerDeportes() {
 
         return ResponseEntity.ok(deporteReservableService.findAll());
 
     }
 
-
     @PostMapping("/crearDeporte")
     public ResponseEntity<?> crearDeporte(@RequestBody DeporteReservable deporteRequest) {
 
         DeporteReservable deporte = new DeporteReservable();
-        deporte.setNombre(deporte.getNombre());
+        deporte.setNombre(deporteRequest.getNombre());
         deporte.setDescripcion(deporteRequest.getDescripcion());
 
         DeporteReservable deporteDb = deporteReservableService.crearDeporteReservable(deporte);
