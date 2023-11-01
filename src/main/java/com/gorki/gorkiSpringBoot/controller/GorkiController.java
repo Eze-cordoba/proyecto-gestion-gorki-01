@@ -43,7 +43,10 @@ public class GorkiController {
     @Autowired
     ReservaServiceImpl reservaService;
 
-
+    /**
+     * Método programado para eliminar reservas que han expirado.
+     * Se ejecuta periódicamente cada 2 horas.
+     */
     @Scheduled(fixedRate = 2 * 60 * 60 * 1000) // Ejecutar cada 2 horas (en milisegundos)
     public void eliminarReservasExpiradas() {
         List<DeporteReservable> deportes = deporteReservableService.findAll();
@@ -58,6 +61,10 @@ public class GorkiController {
         }
     }
 
+    /**
+     * Método programado para actualizar las reservas de la semana.
+     * Se ejecuta todos los domingos a la medianoche (00:00).
+     */
     @Scheduled(cron = "0 0 * * SUN") // Ejecutar todos los domingos a las 00:00 (medianoche)
     public void actualizarReservasDeLaSemana() {
 
@@ -98,7 +105,11 @@ public class GorkiController {
 
     }
 
-
+    /**
+     * Método GET para obtener la lista de deportes reservables.
+     *
+     * @return ResponseEntity: Devuelve una respuesta HTTP con la lista de deportes o un mensaje de error.
+     */
     @GetMapping("/obtenerDeportes")
     public ResponseEntity<?> obtenerDeportes() {
         try {
@@ -110,6 +121,13 @@ public class GorkiController {
         }
     }
 
+
+    /**
+     * Método POST para crear un deporte reservable y sus horarios disponibles para la próxima semana.
+     *
+     * @param deporteRequest Objeto JSON con la información del deporte a crear.
+     * @return ResponseEntity: Devuelve una respuesta HTTP con un mensaje de éxito o error.
+     */
     @PostMapping("/crearDeporte")
     public ResponseEntity<?> crearDeporte(@RequestBody DeporteReservable deporteRequest) {
 
@@ -161,7 +179,12 @@ public class GorkiController {
 
     }
 
-
+    /**
+     * Método GET para obtener un deporte reservable por su ID.
+     *
+     * @param idDeporte ID del deporte reservable que se desea obtener.
+     * @return ResponseEntity: Devuelve una respuesta HTTP con el deporte reservable encontrado o un mensaje de error.
+     */
     @GetMapping("/obtenerDeporte/{idDeporte}")
     public ResponseEntity<?> obtenerDeporte(@PathVariable Long idDeporte) {
 
@@ -174,7 +197,12 @@ public class GorkiController {
 
     }
 
-
+    /**
+     * Método POST para crear un nuevo usuario.
+     *
+     * @param usuario Datos del usuario que se desea crear.
+     * @return ResponseEntity: Devuelve una respuesta HTTP con el usuario creado o un mensaje de error.
+     */
     @PostMapping("/crearUsuario")
     public ResponseEntity<?> crearUsuario(@RequestBody Usuario usuario) {
 
@@ -189,6 +217,12 @@ public class GorkiController {
 
     }
 
+    /**
+     * Método GET para obtener los detalles de un usuario por su ID.
+     *
+     * @param idUsuario ID del usuario que se desea consultar.
+     * @return ResponseEntity: Devuelve una respuesta HTTP con los detalles del usuario o un mensaje de error.
+     */
     @GetMapping("/verUsuario/{idUsuario}")
     public ResponseEntity<?> verUsuario(@PathVariable Long idUsuario) {
 
@@ -202,6 +236,12 @@ public class GorkiController {
 
     }
 
+    /**
+     * Método DELETE para eliminar un usuario por su ID.
+     *
+     * @param idUsuario ID del usuario que se desea eliminar.
+     * @return ResponseEntity: Devuelve una respuesta HTTP con un mensaje de éxito o un mensaje de error en caso de fallo.
+     */
     @DeleteMapping("/eliminarUsuario/{idUsuario}")
     public ResponseEntity<?> eliminarUsuario(@PathVariable Long idUsuario) {
 
@@ -218,7 +258,12 @@ public class GorkiController {
 
     }
 
-
+    /**
+     * Método GET para mostrar los horarios disponibles de un deporte por su ID.
+     *
+     * @param idDeporte ID del deporte del cual se desean mostrar los horarios disponibles.
+     * @return ResponseEntity: Devuelve una respuesta HTTP con la lista de horarios disponibles del deporte o un mensaje de error en caso de fallo.
+     */
     @GetMapping("/mostrarReservas/{idDeporte}")
     public ResponseEntity<?> mostrarhorariosDisponibles(@PathVariable long idDeporte) {
 
@@ -228,6 +273,14 @@ public class GorkiController {
         return ResponseEntity.ok(horarioDisponibles);
     }
 
+    /**
+     * Método PUT para que un usuario haga una reserva en un deporte específico.
+     *
+     * @param idUsuario   ID del usuario que realiza la reserva.
+     * @param idDeporte   ID del deporte en el cual se hará la reserva.
+     * @param requestBody Cuerpo de la solicitud HTTP que debe contener un campo "fecha" en formato "yyyy-MM-dd HH:mm:ss".
+     * @return ResponseEntity: Devuelve una respuesta HTTP indicando si la reserva se realizó con éxito o un mensaje de error en caso de fallo.
+     */
     @PutMapping("/hacerReserva/{idUsuario}/{idDeporte}")
     public ResponseEntity<?> hacerReserva(@PathVariable Long idUsuario, @PathVariable Long idDeporte, @RequestBody Map<String, String> requestBody) {
 
