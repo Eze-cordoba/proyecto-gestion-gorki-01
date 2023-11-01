@@ -23,7 +23,7 @@ public class HorariosDisponiblesServiceImpl {
 
             return	dao.findAll();
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo listar los usuarios");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo listar los usuarios, error :"+ e.getCause());
         }
 
 
@@ -37,7 +37,7 @@ public class HorariosDisponiblesServiceImpl {
             return dao.findById(id).orElse(null);
 
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo encontrar al usuario con el id" + id);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo encontrar al usuario con el id" + id+", error :"+ e.getCause());
         }
 
     }
@@ -49,7 +49,7 @@ public class HorariosDisponiblesServiceImpl {
             dao.deleteById(id);
             System.out.println("HORARIODISPONIBLE ELIMINADOOOO");
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo eliminar al usuario con el id"+ id);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo eliminar al usuario con el id"+ id+", error :"+ e.getCause());
         }
 
     }
@@ -59,7 +59,7 @@ public class HorariosDisponiblesServiceImpl {
         try {
             return dao.save(horarioDisponible);
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo crear al usuario");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo crear al usuario, error :"+ e.getCause());
         }
 
     }

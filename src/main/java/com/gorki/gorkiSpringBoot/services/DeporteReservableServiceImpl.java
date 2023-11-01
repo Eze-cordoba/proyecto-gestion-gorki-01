@@ -21,7 +21,7 @@ public class DeporteReservableServiceImpl {
 
             return	dao.findAll();
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo listar los usuarios");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo listar los usuarios" + ", error :"+ e.getCause());
         }
 
 
@@ -35,7 +35,7 @@ public class DeporteReservableServiceImpl {
             return dao.findById(id).orElse(null);
 
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo encontrar al usuario con el id" + id);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo encontrar al usuario con el id" + id + ", error :"+ e.getCause());
         }
 
     }
@@ -46,7 +46,7 @@ public class DeporteReservableServiceImpl {
         try {
             return dao.save(deporteReservable);
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo crear al usuario" + e.getCause()+ e.getMessage());
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo crear al usuario, error :"+ e.getCause());
         }
 
     }
@@ -59,7 +59,7 @@ public class DeporteReservableServiceImpl {
             dao.deleteById(id);
 
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo eliminar al usuario con el id"+ id);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo eliminar al usuario con el id"+ id + ", error :"+ e.getCause());
         }
 
     }
@@ -72,7 +72,7 @@ public class DeporteReservableServiceImpl {
             return dao.save(deporteReservable);
 
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo actualizar al usuario");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo actualizar al usuario, error :"+ e.getCause());
         }
 
     }
