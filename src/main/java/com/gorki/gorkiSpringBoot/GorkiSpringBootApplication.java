@@ -29,6 +29,7 @@ public class GorkiSpringBootApplication {
 
 	}
 
+	/*
 	@Bean
 	public CommandLineRunner commandLineRunner(HorariosDisponiblesServiceImpl service, DeporteReservableServiceImpl deporteReservableService) {
 		return args -> {
@@ -74,7 +75,7 @@ public class GorkiSpringBootApplication {
 		};
 
 	}
-
+       */
 
 
 
