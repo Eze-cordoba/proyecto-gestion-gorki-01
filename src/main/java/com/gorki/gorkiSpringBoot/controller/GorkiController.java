@@ -65,7 +65,7 @@ public class GorkiController {
      * Método programado para actualizar las reservas de la semana.
      * Se ejecuta todos los domingos a la medianoche (00:00).
      */
-    @Scheduled(cron = "0 0 * * SUN") // Ejecutar todos los domingos a las 00:00 (medianoche)
+    @Scheduled(cron = "0 0 * * * SUN") // Ejecutar todos los domingos a las 00:00 (medianoche)
     public void actualizarReservasDeLaSemana() {
 
         List<DeporteReservable> deportes = deporteReservableService.findAll();
