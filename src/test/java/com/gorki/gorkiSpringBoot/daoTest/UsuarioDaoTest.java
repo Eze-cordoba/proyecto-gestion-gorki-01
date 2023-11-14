@@ -27,21 +27,21 @@ public class UsuarioDaoTest {
     void before() {
         /* Inicializar usuarios y guardarlos en la base de datos antes de cada prueba */
         usuarioA = Usuario.builder()
-                .username("ez3")
+                .firstname("ez3")
                 .password("123")
                 .email("ez5smith@hotmail.com")
                 .build();
         dao.save(usuarioA);
 
         usuarioB = Usuario.builder()
-                .username("ez3")
+                .firstname("ez3")
                 .password("123")
                 .email("ez6smith@hotmail.com")
                 .build();
         dao.save(usuarioB);
 
         usuarioC = Usuario.builder()
-                .username("ez3")
+                .firstname("ez3")
                 .password("123")
                 .email("ez7smith@hotmail.com")
                 .build();
@@ -53,7 +53,7 @@ public class UsuarioDaoTest {
     void testguardarUsuario() {
         /* Crear y guardar un nuevo usuario en la base de datos */
         Usuario usuario = Usuario.builder()
-                .username("ez3")
+                .firstname("ez3")
                 .password("123")
                 .email("ez3smith@hotmail.com")
                 .build();
@@ -68,19 +68,19 @@ public class UsuarioDaoTest {
     void testActualizarUsuario() {
         /* Crear y guardar un nuevo usuario en la base de datos */
         Usuario usuario = Usuario.builder()
-                .username("ez3")
+                .firstname("ez3")
                 .password("123")
                 .email("ez3smith@hotmail.com")
                 .build();
         Usuario usuarioBD = dao.save(usuario);
 
         /* Actualizar el nombre y el correo electrónico del usuario */
-        usuarioBD.setUsername("ez4");
+        usuarioBD.setFirstname("ez4");
         usuarioBD.setEmail("ez4smith@hotmail.com");
         Usuario usuarioActualizado = dao.save(usuarioBD);
 
         /* Verificar que el nombre y el correo electrónico del usuario guardado coincidan con los datos actualizados */
-        assertThat(usuarioActualizado.getUsername()).isEqualTo("ez4");
+        assertThat(usuarioActualizado.getFirstname()).isEqualTo("ez4");
         assertThat(usuarioActualizado.getEmail()).isEqualTo("ez4smith@hotmail.com");
     }
 
@@ -113,7 +113,7 @@ public class UsuarioDaoTest {
 
         /* Verificar que el usuario encontrado no sea nulo y que su nombre coincida con el nombre original de usuarioA */
         assertThat(usuarioBd).isNotNull();
-        assertThat(usuarioBd.getUsername()).isEqualTo("ez3");
+        assertThat(usuarioBd.getFirstname()).isEqualTo("ez3");
     }
 
 }
