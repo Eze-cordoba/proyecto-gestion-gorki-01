@@ -129,9 +129,9 @@ public class AuthenticationService {
   }
   
   
-  public   AuthenticationResponse editarUsuario(Long alumnoId, UpdateRequest request) {
+  public   AuthenticationResponse editarUsuario(Long UsuarioId, UpdateRequest request) {
    
-	  Usuario usuario = repository.findById(alumnoId).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+	  Usuario usuario = repository.findById(UsuarioId).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
       
       // Actualizar los campos necesarios del alumno con los valores proporcionados en la solicitud
       usuario.setFirstname(request.getFirstname());
@@ -177,9 +177,9 @@ public class AuthenticationService {
   }
 
   
-  private void saveUserToken(Usuario alumno, String jwtToken) {
+  private void saveUserToken(Usuario usuario, String jwtToken) {
     var token = Token.builder()
-        .usuario(alumno)
+        .usuario(usuario)
         .token(jwtToken)
         .tokenType(TokenType.BEARER)
         .expired(false)
@@ -245,4 +245,6 @@ public class AuthenticationService {
       }
     }
   }
+
+
 }
