@@ -63,6 +63,7 @@ public class SecurityConfiguration{
             .requestMatchers("/gorki/cerrarSesion").hasAnyRole(ADMIN.name(), DEPORTISTA.name())
             .requestMatchers("/gorki/eliminarReservaUsuario/{idReserva}").hasAnyRole(ADMIN.name(), DEPORTISTA.name())
             .requestMatchers("/gorki/mostrarReservasDeUsuario/{idUsuario}").hasAnyRole(ADMIN.name(), DEPORTISTA.name())
+            .requestMatchers("/gorki/actualizarUsuario/{idUsuario}").hasAnyRole(ADMIN.name(), DEPORTISTA.name())
 
 
             /*
