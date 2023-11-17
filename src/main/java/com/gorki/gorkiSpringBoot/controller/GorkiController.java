@@ -7,6 +7,8 @@ import com.gorki.gorkiSpringBoot.entidades.DeporteReservable;
 import com.gorki.gorkiSpringBoot.entidades.HorarioDisponible;
 import com.gorki.gorkiSpringBoot.entidades.Reserva;
 import com.gorki.gorkiSpringBoot.entidades.Usuario;
+import com.gorki.gorkiSpringBoot.security.auth.AuthenticationService;
+import com.gorki.gorkiSpringBoot.security.auth.UpdateRequest;
 import com.gorki.gorkiSpringBoot.services.DeporteReservableServiceImpl;
 import com.gorki.gorkiSpringBoot.services.HorariosDisponiblesServiceImpl;
 import com.gorki.gorkiSpringBoot.services.ReservaServiceImpl;
@@ -44,6 +46,9 @@ public class GorkiController {
     HorariosDisponiblesServiceImpl horariosDisponiblesService;
     @Autowired
     ReservaServiceImpl reservaService;
+    @Autowired
+    AuthenticationService authenticationService;
+
 
 
 
@@ -185,6 +190,21 @@ public class GorkiController {
 
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'DEPORTISTA')")
+    @PutMapping("/actualizarUsuario/{idUsuario}")
+    public ResponseEntity<?>actualizarUsuario(@PathVariable Long idUsuario,@RequestBody UpdateRequest updateRequest){
+
+        try{
+
+            authenticationService.editarUsuario(idUsuario,updateRequest);
+            return ResponseEntity.ok("usuario actualizado");
+
+        }catch (Exception e){
+            String message = "error al actualizar el usuario";
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(message + ",error:"+e.getCause());
+        }
+
+    }
 
 
     /**
